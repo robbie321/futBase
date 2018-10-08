@@ -2,7 +2,7 @@
   <div class="container1">
   <!-- <h1>Welcome</h1>
   <p>Welcome to FUTBASE. -->
-  <form @submit.prevent="formSubmitted()">
+  <form @submit.prevent="formSubmitted(searchTerm)">
     <h2 class="textH2">Player Search</h2>
     <div id="custom-search-input">
                 <div class="input-group">
@@ -16,7 +16,7 @@
             </div>
   </form>
  <section>
-   <h3>{{searchTerm}}</h3>
+   <h3 v-if="seen">Showing results for : {{searchTerm}}</h3>
    <!-- <img v-if="loading" id="loadingImage" src="http://v3.preloaders.net/preloaders/211/Soccer%20ball-128.gif"> -->
  </section>
     <ul class="list-unstyled"  v-for="card in cards" :key="card._id">
@@ -25,29 +25,29 @@
               <div class="media-body">
                 <h5 class="mt-0 mb-1">{{card.name}}: ({{card.dob}})</h5>
                 <div class="row">
-                    <div class="col-3">
-                      <p>Club<br>Barcelona</p>
+                    <div class="col-md-3">
+                      <p>Club<br>{{card.currentClub}}</p>
                     </div>
-                    <div class="col-4">
-                      <p>Appearances<br>{{card._id}}</p>
+                    <div class="col-md-4">
+                      <p>Appearances<br>{{card.appearances}}</p>
                     </div>
-                    <div class="col-4">
+                    <div class="col-md-4">
                       <p>Goals<br>{{card.goals}}</p>
                     </div>
                 </div>
                <div class="row">
-                    <div class="col-4">
-                      <p>Previous Clubs<br>Barcelona</p>
+                    <div class="col-md-4">
+                      <p>Previous Clubs<br>{{card.previousClubs}}</p>
                     </div>
                 </div>
                  <div class="row">
-                    <div class="col-3">
+                    <div class="col-md-3">
                       <p>Total</p>
                     </div>
-                     <div class="col-4">
-                      <p>Appearances<br>500</p>
+                     <div class="col-md-4">
+                      <p>Appearances<br>{{card.totalAppearances}}</p>
                     </div>
-                     <div class="col-4">
+                     <div class="col-md-4">
                       <p>Goals<br>{{card.goals}}</p>
                     </div>
                 </div>
@@ -57,9 +57,7 @@
              
             </li>
              <hr>
-    </ul>
-
-   
+    </ul> 
   </div>
 </template>
 
@@ -71,7 +69,7 @@ export default {
   data: () => ({
     cards: [],
     searchTerm: '',
-    loading: false,
+    seen: false,
 
   }),
   // mounted(){
@@ -81,10 +79,11 @@ export default {
   //   });
   // },
   methods: {
-   formSubmitted(){
-    fetch(API_URL).then(response => response.json())
+   formSubmitted(name){
+    fetch(API_URL+"/"+name).then(response => response.json())
     .then(cards =>{
             this.cards = cards
+            this.seen = true;
     });
     console.log(this.searchTerm);
     }
@@ -94,9 +93,13 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Raleway:200');
+
+
 body{
   background: #e9e4e4
 }
+
+
 i{
   color: orange
 }
@@ -112,7 +115,7 @@ img{
   height: auto;
 }
 hr{
-  border-top: 1px solid rgb(151, 237, 233);
+  border-top: 1px solid orange;
 }
 
 .textH2{

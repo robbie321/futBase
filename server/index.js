@@ -31,8 +31,9 @@ app.get('/cards', (req,res) =>{
     });
 });
 
-app.get('/cards', (req,res)=>{
-    cards.getByName("Messi").then((cards) => {
+app.get('/cards/:name', (req,res)=>{
+    var name = req.params.name;
+    cards.getByName(name).then((cards) => {
         res.json(cards);
     });
 });
