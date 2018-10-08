@@ -22,6 +22,7 @@ const schema = Joi.object().keys({
 
 
 const cards = db.get('cards');
+const hello;
 
 //get all
 function getAll(){
