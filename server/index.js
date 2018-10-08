@@ -6,7 +6,8 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 //bring in morgan
 const morgan = require('morgan');
-
+//cards
+const cards = require('./db/cards');
 //create express app
 const app = express();
 //middleware. add functionality to express app
@@ -24,6 +25,32 @@ app.get('/', (req,res) => {
     });
 })
 
+app.get('/cards', (req,res) =>{
+    cards.getAll().then((cards) => {
+        res.json(cards);
+    });
+});
+
+app.get('/cards', (req,res)=>{
+    cards.getByName("Messi").then((cards) => {
+        res.json(cards);
+    });
+});
+app.post('/cards', (req,res) => {
+    console.log(req.body);
+    cards.create(req.body).then((card) =>{
+        res.json(card);
+    }).catch((error) => {
+        res.status(500);
+        res.json(error);
+    });
+});
+
+app.delete('/cards', (req,res) => {
+    cards.remove(req.body).then((card) =>{
+        res.json(card);
+    })
+});
 //start server on a port
 const port = process.env.PORT || 2244;
 //listen on this port
