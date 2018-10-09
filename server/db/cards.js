@@ -36,11 +36,17 @@ function getAll(){
 function getByName(searchTerm){
     var pattern = searchTerm
     return cards.find(
-        // { name:{$regex: '.*'+ (searchTerm) + '.*'} })
         { name:{$regex: pattern, $options: 'i'} })
 }
+
+//get by club
+function getByClub(club){
+    var pattern = club;
+    return cards.find(
+        { currentClub:{$regex: pattern, $options: 'i'} })
+}
 function remove(){
-    return cards.remove({_id: "5bbbe6fef92fc91ad0811399"});
+    return cards.remove({_id: "5bbc0bc4cf6df4a28061ec38"});
 }
 //called when player added
 function create(card){
@@ -61,5 +67,6 @@ module.exports = {
     create,
     getAll,
     getByName,
+    getByClub,
     remove,
 };

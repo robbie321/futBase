@@ -31,6 +31,16 @@ app.get('/cards', (req,res) =>{
     });
 });
 
+app.get('/cards/club/:club', (req,res) => {
+    var club = req.params.currentClub;
+    cards.getByClub(club).then((cards) =>{
+        res.json(cards);
+    }).catch((error) => {
+        res.status(500);
+        res.json(error);
+    });
+});
+
 app.get('/cards/:name', (req,res)=>{
     var name = req.params.name;
     cards.getByName(name).then((cards) => {

@@ -1,5 +1,43 @@
 <template>
-  <div class="container1">
+  <div>
+
+      <!-- <form>
+
+
+        <div class="row">    
+        <div class="col-xs-8 col-xs-offset-2">
+		    <div class="input-group">
+                <div class="input-group-btn search-panel">
+                    <button type="button" class="btn btn-lg dropdown-toggle" data-toggle="dropdown">
+                    	<span id="search_concept">Filter by</span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="#contains">Player</a></li>
+                      <li><a href="#its_equal">Club</a></li>
+                      <li><a href="#greather_than">Country</a></li>
+                    </ul>
+                </div>
+                <input type="hidden" name="search_param" value="all" id="search_param">         
+                <input type="text" class="form-control input-lg" name="x" placeholder="Search...">
+                <span class="input-group-btn">
+                    <button class="btn btn-lg" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
+        </div>
+	</div>
+      </form> -->
+
+
+
+
+
+
+
+
+
+
+
+
   <!-- <h1>Welcome</h1>
   <p>Welcome to FUTBASE. -->
   <form @submit.prevent="formSubmitted(searchTerm)">
@@ -8,7 +46,7 @@
                 <div class="input-group">
                     <input v-model = "searchTerm" type="text" class="form-control input-lg" placeholder="Search" />
                     <span class="input-group-btn">
-                        <button class="btn btn-info btn-lg" type="button">
+                        <button class="btn btn-info btn-lg" type="submit">
                             <i class="glyphicon glyphicon-search "></i>
                         </button>
                     </span>
@@ -116,10 +154,20 @@ export default {
             this.cards = cards
             this.seen = true;
     });
-    console.log(this.searchTerm);
-    }
+    console.log(this.name);
+    } ,
+     searchByClub(selectTeam){
+    fetch(API_URL+"/club/"+selectTeam).then(response => response.json())
+    .then(cards =>{
+            this.cards = cards
+            this.seen = true;
+    });
+  }
   },
+ 
+  
 };
+
 </script>
 
 <style>
