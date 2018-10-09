@@ -40,7 +40,7 @@ function getByName(searchTerm){
         { name:{$regex: pattern, $options: 'i'} })
 }
 function remove(){
-    return cards.remove({_id: "5bb81231f54cf90d940d8b13"});
+    return cards.remove({_id: "5bbbe6fef92fc91ad0811399"});
 }
 //called when player added
 function create(card){
